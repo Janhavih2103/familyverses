@@ -73,9 +73,9 @@ export async function toggleFavorite(id: string, favorite: boolean) {
 }
 
 export const authorLabels: Record<string, string> = {
-  Janhavi: "My Poems",
-  Rashmi: "Mom's Poems",
-  Ravindra: "Dad's Poems",
+  Janhavi: "Janhavi's Poems",
+  Rashmi: "Rashmi's Poems",
+  Ravindra: "Ravindra's Poems",
 };
 
 export const authorDescriptions: Record<string, string> = {
