@@ -6,9 +6,9 @@ import Footer from "@/components/Footer";
 import { authorLabels, authorDescriptions } from "@/lib/poems";
 
 const authorIcons = {
-  me: PenLine,
-  mom: HeartIcon,
-  dad: BookOpen,
+  Janhavi: PenLine,
+  Rashmi: HeartIcon,
+  Ravindra: BookOpen,
 };
 
 export default function Index() {
@@ -38,7 +38,7 @@ export default function Index() {
       {/* Poet Cards */}
       <section className="pb-20 px-6">
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
-          {(['me', 'mom', 'dad'] as const).map((author, i) => {
+          {(['Janhavi', 'Rashmi', 'Ravindra'] as const).map((author, i) => {
             const Icon = authorIcons[author];
             return (
               <motion.div

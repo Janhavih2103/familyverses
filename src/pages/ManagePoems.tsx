@@ -9,11 +9,11 @@ import { toast } from "sonner";
 interface FormData {
   title: string;
   content: string;
-  author: 'me' | 'mom' | 'dad';
+  author: 'Janhavi' | 'Rashmi' | 'Ravindra';
   tags: string;
 }
 
-const emptyForm: FormData = { title: '', content: '', author: 'me', tags: '' };
+const emptyForm: FormData = { title: '', content: '', author: '', tags: '' };
 
 export default function ManagePoems() {
   const [refreshKey, setRefreshKey] = useState(0);

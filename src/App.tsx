@@ -8,6 +8,7 @@ import PoemsByAuthor from "./pages/PoemsByAuthor";
 import PoemView from "./pages/PoemView";
 import ManagePoems from "./pages/ManagePoems";
 import NotFound from "./pages/NotFound";
+import { supabase } from "./lib/supabase"
 
 const queryClient = new QueryClient();
 
