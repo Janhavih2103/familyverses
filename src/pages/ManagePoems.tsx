@@ -58,7 +58,7 @@ export default function ManagePoems() {
       return;
     }
 
-    const tags = form.tags.split(",").map((t) => t.trim()).filter(Boolean);
+    const tags = form.tags.split(",").map(t => t.trim()).filter(Boolean);
 
     if (editing) {
       await updatePoem(editing, {
@@ -81,8 +81,8 @@ export default function ManagePoems() {
     }
 
     setShowForm(false);
-    setForm(emptyForm);
     setEditing(null);
+    setForm(emptyForm);
     loadPoems();
   };
 
@@ -113,6 +113,84 @@ export default function ManagePoems() {
             </button>
           </div>
 
+          {/* Add/Edit Modal */}
+          <AnimatePresence>
+            {showForm && (
+              <motion.div
+                className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="bg-card border border-border rounded-xl p-6 w-full max-w-lg"
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.9 }}
+                >
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="font-display text-2xl">
+                      {editing ? "Edit Poem" : "Add Poem"}
+                    </h2>
+
+                    <button onClick={() => setShowForm(false)}>
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+
+                    <input
+                      placeholder="Title"
+                      value={form.title}
+                      onChange={e => setForm({ ...form, title: e.target.value })}
+                      className="w-full p-2 border rounded"
+                    />
+
+                    <select
+                      value={form.author}
+                      onChange={e =>
+                        setForm({
+                          ...form,
+                          author: e.target.value as FormData["author"],
+                        })
+                      }
+                      className="w-full p-2 border rounded"
+                    >
+                      <option value="Janhavi">Janhavi</option>
+                      <option value="Rashmi">Rashmi</option>
+                      <option value="Ravindra">Ravindra</option>
+                    </select>
+
+                    <input
+                      placeholder="Tags (comma separated)"
+                      value={form.tags}
+                      onChange={e => setForm({ ...form, tags: e.target.value })}
+                      className="w-full p-2 border rounded"
+                    />
+
+                    <textarea
+                      placeholder="Poem content"
+                      value={form.content}
+                      onChange={e => setForm({ ...form, content: e.target.value })}
+                      rows={6}
+                      className="w-full p-2 border rounded"
+                    />
+
+                    <button
+                      onClick={handleSave}
+                      className="w-full bg-primary text-white py-2 rounded"
+                    >
+                      {editing ? "Update Poem" : "Add Poem"}
+                    </button>
+
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Poem List */}
           <div className="space-y-3">
             {poems.map((poem, i) => (
               <motion.div
@@ -120,30 +198,22 @@ export default function ManagePoems() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="bg-card border border-border rounded-lg p-5 flex items-start justify-between gap-4"
+                className="bg-card border border-border rounded-lg p-5 flex justify-between"
               >
                 <div>
-                  <h3 className="font-display text-lg font-semibold">
-                    {poem.title}
-                  </h3>
+                  <h3 className="font-display text-lg">{poem.title}</h3>
 
                   <p className="text-xs text-muted-foreground">
                     {authorLabels[poem.author]} · {poem.date}
                   </p>
                 </div>
 
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => openEdit(poem)}
-                    className="p-2 hover:bg-secondary rounded-lg"
-                  >
-                    <Pencil className="w-4 h-4 text-muted-foreground" />
+                <div className="flex gap-2">
+                  <button onClick={() => openEdit(poem)}>
+                    <Pencil className="w-4 h-4" />
                   </button>
 
-                  <button
-                    onClick={() => handleDelete(poem.id)}
-                    className="p-2 hover:bg-destructive/10 rounded-lg"
-                  >
+                  <button onClick={() => handleDelete(poem.id)}>
                     <Trash2 className="w-4 h-4 text-destructive" />
                   </button>
                 </div>
